@@ -1,0 +1,31 @@
+services:
+  dexapp:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/dexapp
+      - dev-static-data:/vol/web
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
+    environment:
+      - DB_HOST=db-dexapp
+      - DB_NAME=dexdb
+      - DB_USER=dexuser
+      - DB_PASS=123dex321
+    depends_on:
+      - db-dexapp
+
+  db-dexapp:
+    image: postgres
+    volumes:
+      - dev-db-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=dexdb
+      - POSTGRES_USER=dexuser
+      - POSTGRES_PASSWORD=123dex321
+
+volumes:
+  dev-db-data:
+  dev-static-data:
