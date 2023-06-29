@@ -18,7 +18,7 @@ services:
       - db-dexapp
 
   db-dexapp:
-    image: postgres
+    image: postgres:alpine
     volumes:
       - dev-db-data:/var/lib/postgresql/data
     environment:
