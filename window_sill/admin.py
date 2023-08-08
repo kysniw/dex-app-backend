@@ -1,3 +1,8 @@
 from django.contrib import admin
+from window_sill import models
 
-# Register your models here.
+admin.site.register(models.SillCategory)
+admin.site.register(models.WindowSill)
+admin.site.register(models.SillThickness)
+admin.site.register(models.SillWidth)
+admin.site.register(models.AdditionalOption)

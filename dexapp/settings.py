@@ -25,6 +25,13 @@ SECRET_KEY = 'django-insecure-(&tn6q_5^2a!xei%50t-i!k6n^24@1rt5_pldd@gih6)j7l74_
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'dex.zamowienia.info@gmail.com'
+EMAIL_HOST_PASSWORD = 'vaipngxmgmbbcbfw'
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
 
 ALLOWED_HOSTS = []
 
@@ -44,7 +51,8 @@ INSTALLED_APPS = [
     'drf_spectacular',
 
     'window_sill',
-    'user'
+    'user',
+    'order'
 ]
 
 MIDDLEWARE = [
@@ -144,3 +152,5 @@ REST_FRAMEWORK = {
 SPECTACULAR_SETTINGS = {
     'COMPONENT_SPLIT_REQUEST': True,
 }
+
+AUTH_USER_MODEL = 'user.User'
