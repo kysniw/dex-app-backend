@@ -6,7 +6,7 @@ from window_sill import views
 
 router = DefaultRouter()
 # router.register('manage_sill', views.WindowSillCreateView)
-router.register('get_sill', views.WindowSillView)
+router.register('', views.WindowSillView)
 
 app_name = 'window_sill'
 

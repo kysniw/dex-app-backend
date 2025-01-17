@@ -29,6 +29,10 @@ class UserSerializer(serializers.ModelSerializer):
 
         return user
 
+class ChangePasswordSerializer(serializers.Serializer):
+    old_password = serializers.CharField(required = True)
+    new_password = serializers.CharField(required = True)
+
 
 class AuthTokenSerializer(serializers.Serializer):
     email = serializers.EmailField()

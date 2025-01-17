@@ -2,6 +2,7 @@ import os
 import uuid
 
 from django.db import models
+from django.conf import settings
 from user.models import User
 from window_sill.models import WindowSill
 
@@ -29,7 +30,7 @@ class Order(models.Model):
     city = models.CharField(max_length=100)
     street = models.CharField(max_length=150)
 
-    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.user.email} {self.total_price} {self.order_date}'
@@ -40,10 +41,10 @@ class OrderDetail(models.Model):
     sill_length = models.PositiveSmallIntegerField(default=0)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     description = models.TextField(max_length=500)
-    technical_draw = models.ImageField(null=True, upload_to=technical_image_file_path)
+    technical_draw = models.ImageField(null=True, blank=True, upload_to=technical_image_file_path)
 
-    order = models.ForeignKey(Order, on_delete=models.DO_NOTHING)
-    window_sill = models.OneToOneField(WindowSill, on_delete=models.DO_NOTHING)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='order_details')
+    window_sill = models.ForeignKey(WindowSill, on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.window_sill.color_name} {self.sill_width} {self.sill_length}'

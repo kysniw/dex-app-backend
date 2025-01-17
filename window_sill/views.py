@@ -23,3 +23,4 @@ class WindowSillView(viewsets.ModelViewSet):
 
         return self.serializer_class
 
+

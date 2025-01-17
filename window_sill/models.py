@@ -2,6 +2,7 @@ import os
 import uuid
 
 from django.db import models
+from user.models import User
 
 
 UNIT_PRICES = (
@@ -35,7 +36,6 @@ class AdditionalOption(models.Model):
 
 
 class SillCategory(models.Model):
-
     category_name = models.CharField(max_length=255)
     price_unit = models.CharField(choices=UNIT_PRICES, default='mb')
     manufacturer = models.CharField(choices=MANUFACTURERS, default='dex')
@@ -67,11 +67,16 @@ class SillThickness(models.Model):
 
 class WindowSill(models.Model):
     color_name = models.CharField(max_length=255)
-    width_option = models.ManyToManyField(SillWidth, blank=True)
-    thickness_option = models.ManyToManyField(SillThickness, blank=True)
+    width_option = models.ForeignKey(SillWidth, on_delete=models.CASCADE, blank=True)
+    thickness_option = models.ForeignKey(SillThickness, on_delete=models.CASCADE, blank=True)
     sill_category = models.ForeignKey(
         SillCategory, on_delete=models.CASCADE, default=0)
-    image = models.ImageField(null=True, upload_to=sill_image_file_path)
+    image = models.ImageField(null=True, blank=True, upload_to=sill_image_file_path)
 
     def __str__(self):
         return self.sill_category.category_name + ' | ' + self.color_name
+
+
+class PirceList(models.Model):
+    list_number = models.PositiveSmallIntegerField(max_length=20, default=1)
+    customer = models.ForeignKey(User, on_delete=models.CASCADE)
